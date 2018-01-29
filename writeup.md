@@ -170,4 +170,24 @@ Here's a [link to my not-fine-tunned challenging video result](./challenge_video
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
+First I want to talk challenging for this task and mistakes I made
+
+* This project needs a lot of parameter tunning work
+* A lot of smooth method to try
+
+However, one mistakes I made about this project is that I try to do this project using notebook, which it not that efficient for testing and modularization. It leads me a very inefficient way to testing and parameter tunning, especially function testing.
+Next project I will write it as normal python project.
+
 Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.
+
+Some approach I tried but failed (Most reason is that I give up on the parameter tuning)
+1. If one line detected, the other not, we copy one line to the other side with some shifting. This failed since it is better to borrow the line from history because it is difficult to know how much to shift. I tried average_lane_width from history records, but it does not work stable. 
+
+```python
+lane.left_line = copy.deepcopy(self.history[-1].left_line)
+```
+2. How to know two parabola is parallel ? 1) difference of the first two coefficients A, B 2) variance of (leftx - rightx) on some sample ys, or just predefined points
+
+3. Smooth
+ * smooth according to left and right line (whether parallel)
+ * smooth according to previous lines found
